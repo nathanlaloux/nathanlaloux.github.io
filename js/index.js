@@ -17,7 +17,7 @@ function fetchData(){
             'Access-Control-Allow-Origin': '*'
         },
         success: function(res) {
-            processApiData(res);
+            processApiData(JSON.stringify(res));
             alert(JSON.stringify(res));
         }
         // put in error handling
