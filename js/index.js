@@ -51,7 +51,7 @@ function addStudent(s){
         url: "https://wilmanagementsystem.azurewebsites.net/api/v1/student/add",
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify(s),
+        data: s,
         dataType: 'json', // added data type
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
