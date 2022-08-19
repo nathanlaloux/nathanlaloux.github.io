@@ -48,10 +48,14 @@ function createStudentAccount(){
 
 function addStudent(s){
     $.ajax({
+        beforeSend: function(xhrObj){
+            xhrObj.setRequestHeader("Content-Type","application/json");
+            xhrObj.setRequestHeader("Accept","application/json");
+        },
         url: "https://wilmanagementsystem.azurewebsites.net/api/v1/student/add",
         type: 'POST',
         contentType: 'application/json',
-        data: s,
+        data: JSON.stringify(s),
         dataType: 'json', // added data type
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
