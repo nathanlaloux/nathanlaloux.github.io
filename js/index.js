@@ -50,7 +50,8 @@ function addStudent(s){
     $.ajax({
         url: "https://wilmanagementsystem.azurewebsites.net/api/v1/student/add",
         type: 'POST',
-        body: JSON.stringify(s),
+        contentType: 'application/json',
+        data: JSON.stringify(s),
         dataType: 'json', // added data type
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
