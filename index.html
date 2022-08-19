@@ -22,8 +22,25 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
 <body>
     <h1>Wil Management System</h1>
     <p>Front end Website test from Nathan Laloux</p>
+   
+    <div class="ui-field-contain">
+        <form id="studentCreationForm">
+                <label for="studentId">Student ID:</label>
+                <input type="text" name="studentId" id="studentId" placeholder="12345678" value="">
+                <label for="studentName">Full Name:</label>
+                <input type="text" name="studentName" id="studentName" placeholder="John Smith" value="">
+                <label for="studentDob">Date of Birth:</label>
+                <input type="date" name="studentDob" id="studentDob" value="">
+                <label for="studentEmail">Email:</label>
+                <input type="text" name="studentEmail" id="studentEmail" placeholder="John.Smith@gmail.com" value="">
+                <button type="submit" id="createStudentAccountButton" onClick="createStudentAccount()" class="ui-shadow ui-btn ui-corner-all ui-mini">Create Account</button>
+      </form>
+    </div>
+   
     <button onclick="fetchData()">Click me</button>
     <p id="test"></p>
+
+
 </body>
 
 </html>
