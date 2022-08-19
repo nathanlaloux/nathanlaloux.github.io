@@ -40,6 +40,7 @@ function createStudentAccount(){
     student.id = document.getElementById("studentId").value;
     student.name = document.getElementById("studentName").value;
     student.dob = document.getElementById("studentDob").value;
+    student.dob.yyyymmdd();
     student.email = document.getElementById("studentEmail").value;
 
     addStudent(student);
@@ -70,4 +71,15 @@ function addStudent(s){
         // put in error handling
     });
 }
+
+Date.prototype.ddmmyyyy = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+  
+    return [(dd>9 ? '' : '0') + dd,
+    (mm>9 ? '' : '0') + mm,
+    this.getFullYear()
+           ].join('');
+  };
+  
 
