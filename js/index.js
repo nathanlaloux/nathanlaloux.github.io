@@ -7,9 +7,9 @@
 function fetchData(){
     var parent = document.getElementById('test');
     parent.innerHTML = "calling api...";
-    
+
     $.ajax({
-        url: "https://wilmanagementsystem.azurewebsites.net/api/v1/student",
+        url: "http://localhost:8080/api/v1/student/all",
         type: 'GET',
         dataType: 'json', // added data type
         headers: {
@@ -20,13 +20,8 @@ function fetchData(){
             processApiData(JSON.stringify(res));
             alert(JSON.stringify(res));
         }
-        // put in error handling
     });
     
-    // fetch('https://wilmanagementsystem.azurewebsites.net/api/v1/student')
-    //     .then(response => response.json())
-    //     .then(response => processApiData(response))
-    //     .catch(err => console.error(err));
 }
 
 function processApiData(response){
@@ -37,49 +32,40 @@ function processApiData(response){
 function createStudentAccount(){
     alert("Submitting");
     var student = {};
-    student.id = document.getElementById("studentId").value;
-    student.name = document.getElementById("studentName").value;
-    student.dob = document.getElementById("studentDob").value;
-    student.dob.yyyymmdd();
-    student.email = document.getElementById("studentEmail").value;
-
+    student['id'] = document.getElementById("studentId").value;
+    student['name'] = document.getElementById("studentName").value;
+    var dob = document.getElementById("studentDob").value;
+    student['dob'] = ddmmyyyy(dob);
+    student['email'] = document.getElementById("studentEmail").value;
+    alert(JSON.stringify(student));
     addStudent(student);
     // document.getElementById('studentCreationForm').submit();
 }
 
 function addStudent(s){
-    $.ajax({
-        beforeSend: function(xhrObj){
-            xhrObj.setRequestHeader("Content-Type","application/json");
-            xhrObj.setRequestHeader("Accept","application/json");
+    var settings = {
+        "url": "http://localhost:8080/api/v1/student/add",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Content-Type": "application/json"
         },
-        url: "https://wilmanagementsystem.azurewebsites.net/api/v1/student/add",
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(s),
-        dataType: 'json', // added data type
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Access-Control-Allow-Origin': '*'
-        },
-        success: function(res) {
-            alert(JSON.stringify(res));
-        },
-        error: function(res){
-            alert('error: ' + JSON.stringify(res));
-        }
-        // put in error handling
-    });
+        "data": JSON.stringify(s),
+      };
+      
+      $.ajax(settings).done(function (res) {
+        alert(JSON.stringify(res));
+      });
 }
 
-Date.prototype.ddmmyyyy = function() {
-    var mm = this.getMonth() + 1; // getMonth() is zero-based
-    var dd = this.getDate();
+function ddmmyyyy(d) {
+    var date = new Date(d);
+    var mm = date.getMonth() + 1; // getMonth() is zero-based
+    var dd = date.getDate();
   
-    return [(dd>9 ? '' : '0') + dd,
-    (mm>9 ? '' : '0') + mm,
-    this.getFullYear()
-           ].join('');
-  };
+    return ((dd>9 ? '' : '0') + dd + '/'+
+    (mm>9 ? '' : '0') + mm + '/'+
+    date.getFullYear());
+}
   
 
