@@ -1,0 +1,118 @@
+/* Responsiveness */
+
+@media only screen and (max-width: 480px) {
+  #menuPanel {
+    width: 60% !important;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .ui-content {
+    width: 900px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+  }
+}
+
+/* General Design */
+
+body {
+  font-family: "Lato", sans-serif;
+  padding: 0px;
+  margin: 0;
+  text-align: center;
+}
+label{
+  display:inline-block;
+  min-width:80px
+}
+
+#home {
+  /* background-image: url("../img/theme3.png");  */
+  /* background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% auto; */
+}
+
+#container {
+  padding-top: 2em;
+}
+
+h2 {
+  text-align: center;
+}
+
+input{
+  width:50%;
+}
+
+.formField{
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  width:100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+#home p {
+  text-align: center;
+}
+
+.content button{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.menuicon {
+  padding: 4px 12px;
+}
+
+.menuicon img {
+  width: 21px;
+  height: 21px;
+}
+
+/*menu */
+
+
+#menuPanel img {
+  width: 80%;
+  display: block;
+  margin: 3em auto
+}
+
+#menuPanel {
+  opacity: .8;
+}
+
+.banner {
+  cursor: pointer
+}
+
+.content {
+  text-align: center;
+}
+
+
+/*  Sliding Menu  ---------------------*/
+
+#menuPanel * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#menuPanel {
+  width: 40%;
+}
+
+.panel-content {
+  padding: 0em;
+}
+
+/*  End Sliding Menu */
+

@@ -2,44 +2,212 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; 
-	style-src 'self' 'unsafe-inline' ; 
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com;
+	style-src 'self' 'unsafe-inline' ;
 	media-src *"> -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; 	
-style-src 'self' 'unsafe-inline';	
-script-src  'self' 'unsafe-eval' 'unsafe-inline'; media-src * ;	
-connect-src 'self' https://wilmanagementsystem.azurewebsites.net/ http://192.168.86.35:3000 http://localhost:8080 ;	
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com;
+style-src 'self' 'unsafe-inline' null;
+script-src  'self' 'unsafe-eval' 'unsafe-inline'; media-src * null;
+connect-src 'self' https://wilmanagementsystem.azurewebsites.net/ http://192.168.86.35:3000 http://localhost:8080 null;
 img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="js/jqueryForMobile.js"></script>
     <script src="js/jquery.mobile-1.4.5.js"></script>
-    <title>Document</title>
+    <script src="js/index.js"></script>
+
+    <title>Wil Management System</title>
 </head>
 
 <body>
-    <h1>Wil Management System</h1>
-    <p>Front end Website test from Nathan Laloux</p>
-   
-    <div class="ui-field-contain">
-        <form id="studentCreationForm">
-                <label for="studentId">Student ID:</label>
-                <input type="text" name="studentId" id="studentId" placeholder="12345678" value="">
-                <label for="studentName">Full Name:</label>
-                <input type="text" name="studentName" id="studentName" placeholder="John Smith" value="">
-                <label for="studentDob">Date of Birth:</label>
-                <input type="date" name="studentDob" id="studentDob" value="">
-                <label for="studentEmail">Email:</label>
-                <input type="text" name="studentEmail" id="studentEmail" placeholder="John.Smith@gmail.com" value="">
-                <button type="submit" id="createStudentAccountButton" onClick="createStudentAccount()" class="ui-shadow ui-btn ui-corner-all ui-mini">Create Account</button>
-      </form>
-    </div>
-   
-    <button onclick="fetchData()">Click me</button>
-    <p id="test"></p>
 
+<!-- / Home page --------------------------------------------------------->
+  <div data-role="page" id="home">
+
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+        <h1 class="banner">Wil Management System</h1>
+        <a href="#" class="menu ui-btn ui-icon-bars ui-disabled">Menu</a>
+    </div>
+
+    <div data-role="content" data-theme="a" class="content">
+        <h2>Wil Management System</h2>
+        
+            <form id="userLoginForm">
+                <div class="ui-field-contain container">
+                    <div class="formField ui-field-contain container">
+                        <label for="username"><b>Username:</b></label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="password"><b>Password:</b></label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                </div>
+                <button type="submit" id="signInButton" onClick="signIn()" class="ui-shadow ui-btn ui-corner-all ui-mini button">Sign In</button>
+            </form>
+            <p>Not a member yet ? <a id="signUpButton" href="#">Sign Up !</a></p>
+            <p id="loginErrorMessage" style="color:red"></p>
+    </div>
+
+    <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+      <h1>Nathan Laloux &copy; 2022</h1>
+    </div>
+  </div>
+
+  <!-- /END Home page --------------------------------------------------------->
+
+    <!-- / UserCreation page --------------------------------------------------------->
+    <div data-role="page" id="userCreationPage">
+
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+        <h1 class="banner">Wil Management System</h1>
+        <a href="#" class="menu ui-btn ui-icon-bars ui-disabled">Menu</a>
+    </div>
+
+    <div data-role="content" data-theme="a" class="content">
+        <h2>Are you a student or a partner agency ?</h2>
+        <a href="#" data-role="button" data-inline="true" data-theme="b" id="getStudentCreationForm">Student</a>
+        <a href="#" data-role="button" data-inline="true" data-theme="b" id="getPartnerCreationForm">Partner</a>
+    </div>
+
+    <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+        <h1>Nathan Laloux &copy; 2022</h1>
+    </div>
+    </div>
+
+    <!-- /END UserCreation page --------------------------------------------------------->
+
+    <!-- / StudentCreation page --------------------------------------------------------->
+    <div data-role="page" id="studentCreationPage">
+
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+            <h1 class="banner">Wil Management System</h1>
+            <a href="#" class="menu ui-btn ui-icon-bars ui-disabled">Menu</a>
+        </div>
+        
+        <div data-role="content" data-theme="a" class="content">
+            <h2>Student Account Creation</h2>
+            <form id="studentCreationForm">
+                <div class="ui-field-contain container">
+                    <div class="formField ui-field-contain container">
+                        <label for="username"><b>Username:</b></label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="passwordStudent"><b>Password:</b></label>
+                        <input type="password" name="passwordStudent" id="passwordStudent" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="RePasswordStudent"><b>Re-type Password:</b></label>
+                        <input type="password" name="RePasswordStudent" id="RePasswordStudent" required>
+                        <p id="rePassStudentMessage" style="color: red;"></p>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="name"><b>Full Name:</b></label>
+                        <input type="text" name="name" id="name" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="studentId"><b>Student ID:</b></label>
+                        <input type="text" name="studentId" id="studentId" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="email"><b>Email:</b></label>
+                        <input type="text" name="email" id="email" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="phone"><b>Phone:</b></label>
+                        <input type="text" name="phone" id="phone" required>
+                    </div>
+                </div>
+                <button type="submit" id="createStudentAccount" class="ui-shadow ui-btn ui-corner-all ui-mini button">Create Account</button>
+            </form>
+        </div>
+        
+        <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+            <h1>Nathan Laloux &copy; 2022</h1>
+        </div>
+    </div>
+    <!-- /END StudentCreation page --------------------------------------------------------->
+
+    <!-- / PartnerCreation page --------------------------------------------------------->
+    <div data-role="page" id="partnerCreationPage">
+
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+            <h1 class="banner">Wil Management System</h1>
+            <a href="#" class="menu ui-btn ui-icon-bars ui-disabled">Menu</a>
+        </div>
+        
+        <div data-role="content" data-theme="a" class="content">
+            <h2>Partner Account Creation</h2>
+            <form id="partnerCreationForm">
+                <div class="ui-field-contain container">
+                    <div class="formField ui-field-contain container">
+                        <label for="username"><b>Username:</b></label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="partnerPassword"><b>Password:</b></label>
+                        <input type="password" name="partnerPassword" id="partnerPassword" required>
+                        <p id="rePassPartnerMessage" style="color: red;"></p>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="partnerRePassword"><b>Re-type Password:</b></label>
+                        <input type="password" name="partnerRePassword" id="partnerRePassword" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="name"><b>Full Name:</b></label>
+                        <input type="text" name="name" id="name" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="businessName"><b>Business Name:</b></label>
+                        <input type="text" name="businessName" id="businessName" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="email"><b>Email:</b></label>
+                        <input type="text" name="email" id="email" required>
+                    </div>
+                    <div class="formField ui-field-contain container">
+                        <label for="phone"><b>Phone:</b></label>
+                        <input type="text" name="phone" id="phone" required>
+                    </div>
+                </div>
+                <button type="submit" id="createPartnerAccount"  class="ui-shadow ui-btn ui-corner-all ui-mini button">Create Account</button>
+            </form>
+        </div>
+        
+        <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+            <h1>Nathan Laloux &copy; 2022</h1>
+        </div>
+    </div>
+    <!-- /END StudentCreation page --------------------------------------------------------->
+
+    <!-- / PartnerCreation page --------------------------------------------------------->
+    <div data-role="page" id="accountCreationResultPage">
+
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+            <h1 class="banner">Wil Management System</h1>
+            <a href="#" class="menu ui-btn ui-icon-bars ui-disabled">Menu</a>
+        </div>
+        
+        <div data-role="content" data-theme="a" class="content">
+            <h2>Account Creation Result</h2>
+            <p id="accountCreationMessage"></p>
+            <p>Head back to <a href="#" data-role="link" data-theme="b" class="homePageLink">Login Page</a></p>
+        </div>
+        
+        <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+            <h1>Nathan Laloux &copy; 2022</h1>
+        </div>
+    </div>
+    <!-- /END StudentCreation page --------------------------------------------------------->
 
 </body>
 
