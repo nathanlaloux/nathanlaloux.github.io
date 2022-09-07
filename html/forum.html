@@ -17,15 +17,15 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
     <link rel="stylesheet" href="../css/index.css">
     <script src="../js/jqueryForMobile.js"></script>
     <script src="../js/jquery.mobile-1.4.5.js"></script>
-    <script src="../js/jobboard.js"></script>
+    <script src="../js/core.js"></script>
 
     <title>Wil Management System</title>
 </head>
 
 
-<body>
+<body onload="getAllForumPosts();">
     <!-- / Home page Student--------------------------------------------------------->
-  <div data-role="page" id="home">
+  <div data-role="page" id="forumHome">
 
     <div data-role="header" data-position="fixed" data-theme="b">
         <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
@@ -35,6 +35,45 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
 
     <div data-role="content" data-theme="a" class="content">
         <h2>Forum</h2>
+        
+        <div class="container forumPosts" id="forumPosts">
+
+        </div>
+
+        <a href="#" data-role="button" data-theme="b" id="createNewForumPost">Create New Post</a>
+    </div>
+
+    <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+      <h1>Nathan Laloux &copy; 2022</h1>
+    </div>
+  </div>
+
+  <!-- /END Home page --------------------------------------------------------->
+
+  <!-- / Create New Forum Post Page--------------------------------------------------------->
+  <div data-role="page" id="newForumPostPage">
+
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+        <h1 class="banner">Wil Management System</h1>
+        <a href="#" class="menu ui-btn ui-icon-bars">Menu</a>
+    </div>
+
+    <div data-role="content" data-theme="a" class="content">
+        <h2>New Forum Post</h2>
+        <form id="createForumPostForm">
+            <div class="ui-field-contain container">
+                <div class="formField ui-field-contain container">
+                    <label for="newForumPostTitle"><b>Title:</b></label>
+                    <input type="text" name="newForumPostTitle" id="newForumPostTitle" required>
+                </div>
+                <div class="formField ui-field-contain container">
+                    <label for="newForumPostContent"><b>Post:</b></label>
+                    <textarea name="newForumPostContent" id="newForumPostContent" required></textarea>
+                </div>
+            </div>
+            <button type="submit" id="postNewForumPost" class="ui-shadow ui-btn ui-corner-all ui-mini button" data-theme="a">Create Post</button>
+        </form>
     </div>
 
     <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
@@ -56,6 +95,7 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
         <li data-icon="grid"> <a href="forum.html" id="forumLink">Forum</a></li>
         <li data-icon="grid"> <a id="messagesLink">Messages</a></li>
         <li data-icon="grid"> <a id="settingsLink">Settings</a></li>
+        <li data-icon="grid"> <a id="logoutLink">Logout</a></li>
       </ul>
 
     </div>

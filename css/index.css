@@ -116,3 +116,79 @@ input{
 
 /*  End Sliding Menu */
 
+/*  ForumPost */
+
+.forumPost{
+  background-color: #333;
+  color:whitesmoke; 
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 1px;
+}
+
+
+.rcorners {
+  border-radius: 25px;
+  border: none;
+  padding: 10px;
+  box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ rgba(0,0,0,.15) /*{global-box-shadow-color}*/;
+}
+
+.ForumTitle {
+  margin-bottom: 15px; 
+  padding-left: 10px;
+  text-align: left;
+  color: aliceblue;
+  font-weight:bold; 
+  font-size: 15px ;
+}
+
+
+.ForumTitle a, .ForumTitle a:link, .ForumTitle a:visited, .ForumTitle a:active {
+  color: aliceblue;
+  text-decoration: none;
+  text-shadow: none;
+}
+.ForumDescription { 
+  padding-left: 10px;
+  font-style: italic; 
+  text-align: left;
+} 
+.ForumAuthor {
+ font-weight:bold; 
+ margin-bottom: 5px; 
+ text-align: right;
+}
+
+ .ForumImage { 
+  border-radius: 25px;
+  border: none;
+  text-align: center;
+  vertical-align: auto;
+  align-items: center;
+  width: 100px;
+}
+
+.forumLeft{
+  width:15%;
+}
+
+.forumCenter{
+  width:55%;
+}
+
+.forumRepliesNbr{
+  text-align: right;
+}
+
+.forumRight{
+  width:30%;
+}
+
+.forumLeft, .forumCenter, .forumRight {
+  display: inline-block;
+  *display: inline; 
+  zoom: 1; 
+  vertical-align: top; 
+  font-size: 12px;
+}

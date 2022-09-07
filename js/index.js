@@ -220,9 +220,9 @@ function redirectUser(res){
     if(res["dtype"] == "Student"){
         window.location.href = "html/jobboard.html";
     }else if(res["dtype"] == "Partner"){
-        window.location.href = "html/partnerjobboard.html";
+        window.location.href = "html/jobboard.html";
     }else if(res["dtype"] == "Admin"){
-        window.location.href = "html/statistics.html";
+        window.location.href = "html/jobboard.html";
     }else{
         alert("error while trying to parse the user");
         window.location.href = "index.html";
