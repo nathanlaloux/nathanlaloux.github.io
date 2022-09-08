@@ -1,4 +1,6 @@
-var baseAddress = "https://nathanlaloux.github.io/";
+var localEndPoint = "http://localhost:8080";
+var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net/";
+var baseAddress = localEndPoint;
 
 $(document).ready(function () {
 

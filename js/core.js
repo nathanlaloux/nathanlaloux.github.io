@@ -1,6 +1,8 @@
 var user = {};
 var userType = "";
-var baseAddress = "https://nathanlaloux.github.io/";
+var localEndPoint = "http://localhost:8080";
+var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net/";
+var baseAddress = localEndPoint;
 
 const ADMIN = "Admin";
 const STUDENT = "Student";
@@ -125,6 +127,7 @@ function postNewForumPost(forumPost){
 
 function getAllForumPosts(){
     loadForumPostDetails();
+    $.mobile.loading('show');
     var settings = {
         "url": baseAddress + "/api/v1/forum/all",
         "method": "GET",
@@ -135,8 +138,10 @@ function getAllForumPosts(){
       };
       
       $.ajax(settings).done(function (res) {
+        $.mobile.loading('hide');
         displayForumPosts(res);
       }).fail(function (error){
+        $.mobile.loading('hide');
         alert(JSON.stringify(error));
     });
 }
