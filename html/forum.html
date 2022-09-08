@@ -60,6 +60,7 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
     </div>
 
     <div data-role="content" data-theme="a" class="content">
+        <a href="forum.html" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">Back</a>
         <h2>New Forum Post</h2>
         <form id="createForumPostForm">
             <div class="ui-field-contain container">
@@ -83,6 +84,39 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
 
   <!-- /END Home page --------------------------------------------------------->
 
+  <!-- / display Forum Details Page--------------------------------------------------------->
+  <div data-role="page" id="displayForumDetailsPage">
+
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <a href="#" class="ui-btn ui-icon-bars homePageLink">Home</a>
+        <h1 class="banner">Wil Management System</h1>
+        <a href="#" class="menu ui-btn ui-icon-bars">Menu</a>
+    </div>
+
+    <div data-role="content" data-theme="a" class="content">
+
+        <a href="forum.html" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">Back</a>
+        <h2>Forum Post</h2>
+        <div class="container forumPost rcorners" id="forumDetails">
+        <!-- <img src="../img/forumPostIcon.png" class="ForumImage forumDetailsLeft"/> -->
+        <div class="forumDetailsCenter">
+            <h2 class="ForumTitle" id="forumDetailsTitle"></h2>
+            <p class="forumDescription" id="forumDetailsDescription"></p>
+        </div>
+        <div>
+            <p class="ForumAuthor" id="forumDetailsAuthor"></p>
+        </div>
+        </div>
+    </div>
+
+    <div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b">
+      <h1>Nathan Laloux &copy; 2022</h1>
+    </div>
+  </div>
+
+  <!-- /END display Forum Details Page--------------------------------------------------------->
+  
+
   <!--Menu Panel-->
   <div data-role="panel" id="menuPanel" data-position-fixed="true" data-position="right" data-theme="b"
     data-display="overlay">
@@ -90,12 +124,7 @@ img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
     <div class="panel-content">
       <a class="banner"><img src="../img/CQULogo.png"/></a>
       <ul data-role="listview" id="menuListview">
-        <li data-icon="grid"> <a href="jobboard.html"  id="jobBoardLink">Job Board</a></li>
-        <li data-icon="grid"> <a id="viewApplicationLink">View Applications</a></li>
-        <li data-icon="grid"> <a href="forum.html" id="forumLink">Forum</a></li>
-        <li data-icon="grid"> <a id="messagesLink">Messages</a></li>
-        <li data-icon="grid"> <a id="settingsLink">Settings</a></li>
-        <li data-icon="grid"> <a id="logoutLink">Logout</a></li>
+        
       </ul>
 
     </div>

@@ -1,4 +1,4 @@
-var baseAddress = "http://localhost:8080";
+var baseAddress = "https://nathanlaloux.github.io/";
 
 $(document).ready(function () {
 

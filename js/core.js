@@ -1,6 +1,6 @@
 var user = {};
 var userType = "";
-var baseAddress = "http://localhost:8080";
+var baseAddress = "https://nathanlaloux.github.io/";
 
 const ADMIN = "Admin";
 const STUDENT = "Student";
@@ -10,6 +10,7 @@ $(document).ready(function () {
 
     initializeUser();
     initializeView();
+    loadMenu(userType);
 
     // ------ Menu controls ---------- //
     
@@ -20,10 +21,27 @@ $(document).ready(function () {
            $("#menuPanel").panel("open");
     });
 
+    $(".homePageLink").click(function () {
+        if(userType == ADMIN){
+            window.location.href = "statistics.html";
+        }else if(userType == STUDENT){
+            window.location.href = "jobboard.html";
+        }else if(userType == PARTNER){
+            window.location.href = "partnerapplicationboard.html";
+        }else{
+            window.location.href = "../index.html";
+        }
+ });
+    
+
     // ------ Job Board controls ---------- //
 
     $("#jobBoardLink").click(function (e) {
         window.location.href = "jobboard.html";
+    });
+
+    $("#partnerApplicationBoardLink").click(function (e) {
+        window.location.href = "partnerapplicationboard.html";
     });
 
     // ------ forum controls ---------- //
@@ -94,7 +112,8 @@ function postNewForumPost(forumPost){
       };
       
       $.ajax(settings).done(function (res) {
-        alert(JSON.stringify(res));
+        //alert(JSON.stringify(res));
+        $("body").pagecontainer("change", "#forumHome");
         // document.getElementById('accountCreationMessage').innerHTML = "The Partner account was successfully created.";
         // $("body").pagecontainer("change", "#accountCreationResultPage");
       }).fail(function (error){
@@ -105,6 +124,7 @@ function postNewForumPost(forumPost){
 }
 
 function getAllForumPosts(){
+    loadForumPostDetails();
     var settings = {
         "url": baseAddress + "/api/v1/forum/all",
         "method": "GET",
@@ -146,8 +166,11 @@ function displayForumPost(forumPost){
     var title = document.createElement('h3');
     title.className = "ForumTitle";
     var titleLink = document.createElement('a');
+    var forumPostId = "forumPostId" + forumPost["id"];
+    titleLink.id = forumPostId;
     titleLink.innerHTML = forumPost["title"];
     titleLink.href = "#";
+
     title.appendChild(titleLink);
 
     var description = document.createElement('p');
@@ -162,7 +185,7 @@ function displayForumPost(forumPost){
     rightDiv.className = "forumRight";
 
     var author = document.createElement('p');
-    author.innerHTML = "Posted by " + forumPost['author']["name"] + "<br>" + forumPost["postedDate"];
+    author.innerHTML = "Posted by " + forumPost['author']["name"] + "<br>" + forumPost["postedDate"].replace("T"," at ");
     author.className = "ForumAuthor"
 
     var repliesNbr = document.createElement('p');
@@ -180,6 +203,27 @@ function displayForumPost(forumPost){
 
 
     container.appendChild(iDiv);
+
+    //register a dinamically created event listener
+    $(document).on('click', "#" + forumPostId , function() {
+        displayForumPostPage(forumPost);
+   });
+
+}
+
+function displayForumPostPage(forumPost){
+    storeItem("forumPost",forumPost);
+    loadForumPostDetails();
+    $("body").pagecontainer("change", "#displayForumDetailsPage");
+}
+
+function loadForumPostDetails(){
+    var forumPostDetails = retrieveObject("forumPost"); 
+    if(forumPostDetails){
+        document.getElementById('forumDetailsTitle').innerHTML = forumPostDetails["title"];
+        document.getElementById('forumDetailsDescription').innerHTML = forumPostDetails["description"];
+        document.getElementById('forumDetailsAuthor').innerHTML = "Posted by " + forumPostDetails['author']["name"] + "<br>" + forumPostDetails["postedDate"].replace("T"," at ");
+    }
 }
 
 function limitCharacters(text, nbr){
@@ -191,4 +235,43 @@ function limitCharacters(text, nbr){
 
     newString += "...";
     return newString;
+}
+
+function storeItem(name, object){
+    localStorage.setItem(name,JSON.stringify(object));
+}
+
+function retrieveObject(name){
+    return JSON.parse(localStorage.getItem(name));
+}
+
+function loadMenu(userT){
+    var menu = document.getElementById("menuListview");
+
+
+   
+    if(userT == ADMIN){
+        addMenuItem(menu, "statisticsLink", "Statistics");
+        addMenuItem(menu, "jobBoardLink", "Job Board");
+        addMenuItem(menu, "partnerApplicationBoardLink", "Application Board");
+    } else if(userT == PARTNER){
+        addMenuItem(menu, "partnerApplicationBoardLink", "Application Board");
+    }else if(userT == STUDENT){
+        addMenuItem(menu, "jobBoardLink", "Job Board");
+    }
+
+    addMenuItem(menu, "forumLink", "Forum");
+    addMenuItem(menu, "messagesLink", "Messages");
+    addMenuItem(menu, "settingsLink", "Settings");
+    addMenuItem(menu, "logoutLink", "Logout");
+}
+
+function addMenuItem(menu, itemId, itemName){
+    var li = document.createElement('li');
+    li.setAttribute("data-icon","grid");
+    var a = document.createElement("a");
+    a.id = itemId;
+    a.innerHTML = itemName;
+    li.appendChild(a);
+    menu.appendChild(li);
 }

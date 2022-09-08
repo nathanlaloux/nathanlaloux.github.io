@@ -151,13 +151,16 @@ input{
 }
 .ForumDescription { 
   padding-left: 10px;
+  padding-right: 10px;
   font-style: italic; 
-  text-align: left;
+  /* text-align: left; */
+  text-align: justify;
 } 
 .ForumAuthor {
  font-weight:bold; 
  margin-bottom: 5px; 
  text-align: right;
+ font-size: 12px;
 }
 
  .ForumImage { 
@@ -171,6 +174,15 @@ input{
 
 .forumLeft{
   width:15%;
+}
+
+.forumDetailsLeft{
+  width:10%;
+  text-align: left;
+}
+
+.forumDetailsCenter{
+  width:100%;
 }
 
 .forumCenter{
