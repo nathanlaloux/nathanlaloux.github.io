@@ -1,6 +1,6 @@
 var localEndPoint = "http://localhost:8080";
 var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net/";
-var baseAddress = localEndPoint;
+var baseAddress = serverEndPoint;
 
 $(document).ready(function () {
 

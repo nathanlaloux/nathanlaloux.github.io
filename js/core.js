@@ -2,7 +2,7 @@ var user = {};
 var userType = "";
 var localEndPoint = "http://localhost:8080";
 var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net/";
-var baseAddress = localEndPoint;
+var baseAddress = serverEndPoint;
 
 const ADMIN = "Admin";
 const STUDENT = "Student";
