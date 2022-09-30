@@ -833,7 +833,7 @@ function displayJob(jobGlob, containerDiv, descriptionLength){
 
         $(document).on('click', "#" + applyButtonId , function() {
             localStorage.setItem("currentJobDetails",JSON.stringify(job));
-            navigateTo("interestApplication.html");
+            navigateTo("interestapplication.html");
        });
 
     }else{
