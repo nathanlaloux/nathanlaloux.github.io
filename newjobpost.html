@@ -11,7 +11,7 @@
     connect-src 'self' https://wilmanagementsystem.azurewebsites.net/ http://192.168.86.35:3000 http://localhost:8080 null;
     img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
     <meta charset="UTF-8">
-    <title>WILMS - Home</title>
+    <title>WILMS - Job Board</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -39,7 +39,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="initialization()">
+<body onload="initialization(); setJobCategoriesDropDown();" >
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -55,7 +55,7 @@
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
 
-                    <h3 class="primary-text"><img class="nav-item" src="img/cquLogo.png" style="width: 40px; height: 40px;margin-right: 20px;"/>WILMS</h3>
+                    <h3 class="text-primary"><img class="nav-item" src="img/cquLogo.png" style="width: 40px; height: 40px;margin-right: 20px;"/>WILMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -63,11 +63,14 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0 userName"></h6>
-                        <span class="userType"></span>
+                        <h6 class="mb-0 userName">Nathan Laloux</h6>
+                        <span class="userType">Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100" id="menuListview">
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Job Board</a>
+                    <a href="forum.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Forum</a>
+                    <a href="messages.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Messages</a>
                 </div>
             </nav>
         </div>
@@ -75,45 +78,68 @@
 
 
         <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"></h2>
-                </a>
-                <div class="navbar-nav align-items-center ms-auto userNav">
-                    <div class="nav-item dropdown userNav">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-user me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex userName">Nathan Laloux</span>
+                <div class="content">
+                    <!-- Navbar Start -->
+                    <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                        <a href="#" class="sidebar-toggler flex-shrink-0">
+                            <i class="fa fa-bars"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item logoutLink">Log Out</a>
+                        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                            <h2 class="text-primary mb-0"></h2>
+                        </a>
+                        <div class="navbar-nav align-items-center ms-auto">
+                        
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-user me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex userName">Nathan Laloux</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                <a href="profile.html" class="dropdown-item">My Profile</a>
+                                <a href="#" class="dropdown-item logoutLink">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Navbar End -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-secondary">
+                        <button type="button" onclick="navigateTo('jobboard.html')" class="btn btn-secondary m-2"><i class="fa fa-chevron-left me-2"></i>Back</button>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <form class="container rcorners" id="createJobPostForm">
+                                    <h2 class="mb-4">New Job Post</h2>
+                                    <select class="form-select mb-3" aria-label="Default select example" id="jobCategoryDopDown">
+                                        <option selected>Category</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="newJobPostTitle"
+                                            placeholder="Post Title">
+                                        <label for="newJobPostTitle">Title</label>
+                                    </div>
+                                    <!-- <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="newJobPostCompany"
+                                            placeholder="Company Name">
+                                        <label for="newJobPostCompany">Company</label>
+                                    </div> -->
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="newJobPostDescription" style="height: 150px;"></textarea>
+                                        <label for="newJobPostDescription">Post Description</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <button type="button" class="btn btn-primary" style="margin: 15px auto; display: block;" id="newJobPostSubmit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-            <!-- Navbar End -->
-
-             <!-- Sign In Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
-                <div class="col-md-6 text-center">
-                    <div class="bg-secondary rounded">
-                        <div class="centered">
-                            <h2>Welcome to WIL Management System</h2>
-                            <img class="background" src="img/background2.png"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Sign In End -->
-
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded-top p-4">

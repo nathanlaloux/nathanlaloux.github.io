@@ -39,7 +39,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="initialization()">
+<body onload="initialization();">
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -104,9 +104,23 @@
             <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
                 <div class="col-md-6 text-center">
                     <div class="bg-secondary rounded">
-                        <div class="centered">
-                            <h2>Welcome to WIL Management System</h2>
-                            <img class="background" src="img/background2.png"/>
+                        <form id="userLoginForm" class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h3>Sign In</h3>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="username" placeholder="johnsmith">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="password" placeholder="Password">
+                                <label for="password">Password</label>
+                            </div>
+                            <button type="button" class="btn btn-primary py-3 w-100 mb-4" id="signInButton" onclick="signIn()">Sign In</button>
+                            <p class="text-center mb-0">Don't have an Account? <a href="signup.html">Sign Up</a></p>
+                        </form>
+                        <div class="form-floating mb-4">
+                            <p id="loginErrorMessage"></p>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
     connect-src 'self' https://wilmanagementsystem.azurewebsites.net/ http://192.168.86.35:3000 http://localhost:8080 null;
     img-src 'self' https://wilmanagementsystem.azurewebsites.net/ data: content:;">
     <meta charset="UTF-8">
-    <title>WILMS - Home</title>
+    <title>WILMS - Job Board</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -39,10 +39,10 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="initialization()">
+<body onload="initialization(); loadDashboard();">
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -84,14 +84,53 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"></h2>
                 </a>
-                <div class="navbar-nav align-items-center ms-auto userNav">
-                    <div class="nav-item dropdown userNav">
+                <div class="navbar-nav align-items-center ms-auto">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-user me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex userName">Nathan Laloux</span>
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-user me-lg-2"></i>
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">John send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div> -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-user me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex userName"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                            <a href="profile.html" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item logoutLink">Log Out</a>
                         </div>
                     </div>
@@ -99,20 +138,42 @@
             </nav>
             <!-- Navbar End -->
 
-             <!-- Sign In Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
-                <div class="col-md-6 text-center">
-                    <div class="bg-secondary rounded">
-                        <div class="centered">
-                            <h2>Welcome to WIL Management System</h2>
-                            <img class="background" src="img/background2.png"/>
+              <!-- Chart Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                 
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Job Statistics</h6>
+                            <canvas id="jobStat"></canvas>
+                        </div>
+                    </div> 
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Interest Applications Statistics</h6>
+                            <canvas id="interestApplicationsStat"></canvas>
+                        </div>
+                    </div> 
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Forum Statistics</h6>
+                            <canvas id="forumStat"></canvas>
+                        </div>
+                    </div> 
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Discussions Statistics</h6>
+                            <canvas id="discussionStat"></canvas>
+                        </div>
+                    </div> 
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4 ">
+                            <h6 class="mb-4">User Types</h6>
+                            <canvas id="userStat" class="userStat"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Sign In End -->
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
@@ -145,7 +206,7 @@
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
     <script src="js/core.js"></script>
 
 </body>
