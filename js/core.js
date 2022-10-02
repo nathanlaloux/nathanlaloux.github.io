@@ -15,14 +15,6 @@ const ADMIN = "Admin";
 const STUDENT = "Student";
 const PARTNER = "Partner";
 
-// var spinner = function () {
-//     setTimeout(function () {
-//         if ($('#spinner').length > 0) {
-//             $('#spinner').removeClass('show');
-//         }
-//     }, 5);
-// };
-
 (function ($) {
     "use strict";
 
@@ -52,6 +44,12 @@ const PARTNER = "Partner";
         return false;
     });
 
+    // Sidebar Toggler
+    $('.sidebar-toggler').click(function () {
+        $('.sidebar, .content').toggleClass("open");
+        return false;
+    });
+
     // ------ Job Board controls ---------- //
 
     $("#createNewJobPostButton").click(function (e) {
@@ -73,8 +71,10 @@ const PARTNER = "Partner";
     $("#editJobPostSubmit").click(function (e) {
         editJobPost();
     });
-    
-    
+
+    $("#viewAppliedJobButton").click(function (e) {
+        filterAppliedJobs();
+    });
 
     // ------ forum controls ---------- //
 
@@ -89,9 +89,6 @@ const PARTNER = "Partner";
     $("#editForumPostSubmit").click(function (e) {
         editForumPost();
     });
-
-
-    
 
     // ------ User controls ---------- //
     
@@ -112,8 +109,6 @@ const PARTNER = "Partner";
         editProfile();
     });
 
-    
-
     // ------ Messaging ---------- //
 
     $("#newMessageButton").click(function (e) {
@@ -130,7 +125,7 @@ const PARTNER = "Partner";
 
 })(jQuery);
 
-    // ------ User controls ---------- //
+// ------ User controls ---------- //
 
 function initialization(){
     initializeUser();
@@ -145,13 +140,9 @@ function initializeUser(){
 
     if(!userObj){
         hidingUserNav();
-        // var p = window.location.href;
-        // if (!(p.length === 0 || p === "/" || p.match(/^\/?index/))){window.location.href = "index.html";}
         return;
     }else if(!(userObj["dtype"] == "Admin" || userObj["dtype"] == "Partner" || userObj["dtype"] == "Student")){
         hidingUserNav();
-        // if (!(p.length === 0 || p === "/" || p.match(/^\/?index/))){window.location.href = "index.html";}
-        // if(window.location.href != "index.html"){window.location.href = "index.html";}
         return;
     }else{
         user = userObj;
@@ -246,11 +237,8 @@ function createNewElement(type, className){
 
 function loadDashboard(){
     getDashboardData().done(function (res) {
-        // alert(JSON.stringify(res));
-        // interestApplications = res;
         processDashboardData(res);
         hideSpinner();
-        // displayInterestApplications(res, job);
       }).fail(function (error){
         hideSpinner();
         alert(JSON.stringify(error));
@@ -329,7 +317,6 @@ function processDatesChart(statData){
     stat.labels = labels;
     stat.data = data;
 
-    // alert(JSON.stringify(labels));
     return stat;
 }
 
@@ -397,26 +384,16 @@ function createInterestApplication(){
 
 function postInterestApplication(formData){
     var settings = {
-        // "enctype": 'multipart/form-data',
         "url": baseAddress + "/api/v1/job/addinterestapplication",
         "method": "POST",
         "processData": false,
         "contentType": false,
         "timeout": 0,
-        "headers": {
-        //   "Content-Type": "application-octet-stream"
-        // "Content-Type": "application/json"
-
-        //   'Content-Type': 'multipart/form-data',
-        //   'Accept': 'application/json',
-        },
         "data": formData,
       };
       
       $.ajax(settings).done(function (res) {
-        // alert(JSON.stringify(res));
         navigateTo("jobboard.html");
-        // displayConversation(currentDiscussion);
       }).fail(function (error){
         alert(JSON.stringify(error));
     });
@@ -442,7 +419,6 @@ function getInterestApplications(job){
       };
       
       $.ajax(settings).done(function (res) {
-        // alert(JSON.stringify(res));
         interestApplications = res;
         hideSpinner();
         displayInterestApplications(res, job);
@@ -476,18 +452,6 @@ function displayInterestApplication(application, job, container){
     titleDiv.className = "jobPostTitle primary-text";
     titleDiv.innerHTML = application.student.name;
 
-//     var titleLink = document.createElement('a');
-//     var titleLinkId = "jobLink" + job.id;
-//     titleLink.id = titleLinkId;
-//     titleLink.href = "#";
-//     titleLink.innerText = job.title;
-//     titleDiv.appendChild(titleLink);
-
-//     $(document).on('click', "#" + titleLinkId , function() {
-//         localStorage.setItem("currentJobDetails",JSON.stringify(job));
-//         navigateTo("jobdetails.html");
-//    });
-
     var descriptionDiv = document.createElement('div');
     descriptionDiv.className = "jobPostDescription text-justify";
     descriptionDiv.innerHTML = application.message;
@@ -519,57 +483,12 @@ function displayInterestApplication(application, job, container){
     controlDiv.appendChild(downloadbutton);
 
     $(document).on('click', "#" + downloadbuttonId , function() {
-        // messageCurrentUser = usr;
-        // getResume(application.id).done(function (res) {
-        //     // alert(JSON.stringify(res));
-        //     // downloadFile(res.resume,"resume.docx");
-        //     // interestApplications = res;
-        //     hideSpinner();
-        //     // displayInterestApplications(res, job);
-        //   }).fail(function (error){
-        //     hideSpinner();
-        //     alert(JSON.stringify(error));
-        // });
         window.open(baseAddress + `/api/v1/job/getresume/${application.id}`, '_blank').focus();
-        // alert(blob);
-        // displayConversationName(messageCurrentUser['name']);
-        // GetDiscussion(messageCurrentUser);
-        // alert(" Doanload button for application: " + downloadbuttonId);
     });
-
-    // var messageButton = document.createElement('button');
-    // messageButton.className = "btn btn-primary";
-    // messageButton.innerText = "Message Applicant";
-    // var messageButtonId = "messageButton" + application.id;
-    // messageButton.id = messageButtonId;
-    // controlDiv.appendChild(messageButton);
-
-    // $(document).on('click', "#" + messageButtonId , function() {
-    //     // messageCurrentUser = usr;
-    //     // displayConversationName(messageCurrentUser['name']);
-    //     // GetDiscussion(messageCurrentUser);
-    //     alert("Message Applicant button for application: " + messageButtonId);
-    // });
-
-    // var viewApplicationButton = document.createElement('button');
-    // viewApplicationButton.className = "btn btn-primary";
-    // viewApplicationButton.innerText = "View Applications";
-    // var viewApplicationButtonId = "viewApplication" + job.id;
-    // viewApplicationButton.id = viewApplicationButtonId;
-    // controlDiv.appendChild(viewApplicationButton);
-
-    // $(document).on('click', "#" + viewApplicationButtonId , function() {
-    //     // messageCurrentUser = usr;
-    //     // displayConversationName(messageCurrentUser['name']);
-    //     // GetDiscussion(messageCurrentUser);
-    //     localStorage.setItem("currentJobDetails",JSON.stringify(job));
-    //     navigateTo("viewapplications.html");
-    // });
 
     styleContainer.appendChild(controlDiv);
 
     container.appendChild(styleContainer);
-
 
 }
 
@@ -587,40 +506,6 @@ function getResume(id){
       
       return $.ajax(settings);
 
-}
-
-// function downloadFile(data, name = "resume.docx", element){
-//     const blob = new Blob([data], {type : "octet-stream"});
-
-//     const href = URL.createObjectURL(blob);
-
-//     const newElem = Object.assign(element, {
-//         href,
-//         style: "display: none",
-//         download: name
-//     });
-
-//     // newElem.click();
-//     // URL.revokeObjectURL(href);
-//     // newElem.remove();
-// }
-
-function downloadFile(data, filename) {
-    var file = new Blob([data], {type: "octet-stream"});
-    if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(file, filename); //IE 10+
-    } else {
-        var a = document.createElement("a");
-        var url = window.URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }, 0);
-    }
 }
 
 // ------ Job Board ---------- //
@@ -641,8 +526,6 @@ function createNewJobPost(){
 
 }
 
-
-
 function postNewJobPost(jobPost){
     var settings = {
         "url": baseAddress + "/api/v1/job/addjob",
@@ -655,9 +538,7 @@ function postNewJobPost(jobPost){
       };
       
       $.ajax(settings).done(function (res) {
-        // alert(JSON.stringify(res));
         navigateTo("jobboard.html");
-        // displayConversation(currentDiscussion);
       }).fail(function (error){
         alert(JSON.stringify(error));
     });
@@ -684,9 +565,6 @@ function getPartnerJobs(){
       };
       
       $.ajax(settings).done(function (res) {
-        // messageUsers = res;
-        // displayMessageUsers(messageUsers);
-        // alert(JSON.stringify(res));
         jobList = res;
         hideSpinner();
         displayAllJobs(res);
@@ -694,6 +572,25 @@ function getPartnerJobs(){
         hideSpinner();
         alert(JSON.stringify(error));
     });
+}
+
+function filterAppliedJobs(){
+
+    var filteredJobList = [];
+    for(var index = 0; index < jobList.length; index++){
+
+        var job = jobList[index];
+        for(var index2 = 0; index2 < job.interestApplications.length; index2++){
+            var interestApplication = job.interestApplications[index2];
+            if(interestApplication.student.id == user.id){
+                filteredJobList.push(job);
+                break;
+            }
+        }
+    }
+
+    displayAllJobs(filteredJobList);
+
 }
 
 function getAllJobs(){
@@ -708,8 +605,6 @@ function getAllJobs(){
       };
       
       $.ajax(settings).done(function (res) {
-        // messageUsers = res;
-        // displayMessageUsers(messageUsers);
         jobList = res;
         hideSpinner();
         displayAllJobs(res);
@@ -763,7 +658,6 @@ function displayAllJobs(jobs){
 function displayJob(jobGlob, containerDiv, descriptionLength){
 
     var job = jobGlob;
-    // var containerDiv = document.getElementById('jobPostings');
 
     var styleContainer = document.createElement('div');
     styleContainer.className = "black-background jobPost rounded h-100 p-4";
@@ -808,8 +702,6 @@ function displayJob(jobGlob, containerDiv, descriptionLength){
     applicantsDiv.className = "jobPostApplicants";
     applicantsDiv.innerText = "Number of Applicants: " + job.interestApplications.length;
 
-    
-
     infoSection.appendChild(titleDiv);
     infoSection.appendChild(companyDiv);
     infoSection.appendChild(descriptionDiv);
@@ -845,9 +737,6 @@ function displayJob(jobGlob, containerDiv, descriptionLength){
         controlDiv.appendChild(editButton);
 
         $(document).on('click', "#" + editButtonId , function() {
-            // messageCurrentUser = usr;
-            // displayConversationName(messageCurrentUser['name']);
-            // GetDiscussion(messageCurrentUser);
             localStorage.setItem("currentJobDetails",JSON.stringify(job));
             navigateTo("editjobpost.html")
        });
@@ -860,12 +749,7 @@ function displayJob(jobGlob, containerDiv, descriptionLength){
         controlDiv.appendChild(deleteButton);
 
         $(document).on('click', "#" + deleteButtonId , function() {
-            // messageCurrentUser = usr;
-            // displayConversationName(messageCurrentUser['name']);
-            // GetDiscussion(messageCurrentUser);
-            // localStorage.setItem("currentJobDetails",JSON.stringify(job));
             deleteJobPost(job);
-            // alert(" Delete button for Post: " + deleteButtonId);
        });
 
        var viewApplicationButton = document.createElement('button');
@@ -876,9 +760,6 @@ function displayJob(jobGlob, containerDiv, descriptionLength){
        controlDiv.appendChild(viewApplicationButton);
 
        $(document).on('click', "#" + viewApplicationButtonId , function() {
-           // messageCurrentUser = usr;
-           // displayConversationName(messageCurrentUser['name']);
-           // GetDiscussion(messageCurrentUser);
            localStorage.setItem("currentJobDetails",JSON.stringify(job));
            navigateTo("viewapplications.html");
       });
@@ -952,9 +833,14 @@ function setCategoriesForFiltering(){
 }
 
 function hideCreateJobButton(){
-    var button = document.getElementById('newJobPostButton');
+    var newJobButton = document.getElementById('newJobPostButton');
+    var viewAppliedJobButton = document.getElementById('viewAppliedJobDiv');
     if(user.dtype == STUDENT){
-        button.className = "hide";
+        newJobButton.className = "hide";
+    }
+
+    if(user.dtype == ADMIN || user.dtype == PARTNER){
+        viewAppliedJobButton.className = "hide";
     }
 }
 
@@ -1029,12 +915,6 @@ function deleteJobPost(job){
       });
 }
 
-// function initializeView(){
-//     if(userType == STUDENT){
-        
-//     }
-// }
-
     // ------ Extras ---------- //
 
 function showSpinner(){
@@ -1076,8 +956,6 @@ function postNewMessage(message){
       
       $.ajax(settings).done(function (res) {
         currentDiscussion["messages"].push(res);
-        // var messageInput = document.getElementById('newMessageInput').value;
-        // messageInput = '';
         displayConversation(currentDiscussion);
       }).fail(function (error){
         alert(JSON.stringify(error));
@@ -1116,8 +994,6 @@ function searchMessageUser(browseAll = false){
       
     $.ajax(settings).done(function (res) {
         messageUsers = res;
-        // alert(JSON.stringify(messageUsers));
-        //sorting users by name alphbetically
         messageUsers.sort((a, b) => {
             const nameA = a.name.toUpperCase(); // ignore upper and lowercase
             const nameB = b.name.toUpperCase(); // ignore upper and lowercase
@@ -1132,7 +1008,6 @@ function searchMessageUser(browseAll = false){
           });
         displayMessageUsers(messageUsers);
       }).fail(function (error){
-        // hideSpinner();
         alert(JSON.stringify(error));
     });
 }
@@ -1190,10 +1065,8 @@ function GetDiscussion(messageCurrentUser){
       
       $.ajax(settings).done(function (res) {
         currentDiscussion = res;
-        // alert(currentDiscussion);
         displayConversation(currentDiscussion);
       }).fail(function (error){
-        // hideSpinner();
         alert(JSON.stringify(error));
     });
 }
@@ -1218,7 +1091,6 @@ function getAllDiscussions(){
             displayConversationName(messageCurrentUser.name  + " (" + messageCurrentUser['dtype'] + ")");
         }
       }).fail(function (error){
-        // hideSpinner();
         alert(JSON.stringify(error));
     });
 }
@@ -1353,8 +1225,6 @@ function createNewForumPost(){
     forumPost['title'] = form['newForumPostTitle'].value;
     forumPost['description'] = form['newForumPostContent'].value;
     forumPost['author'] = user;
-
-    // alert(JSON.stringify(forumPost));
 
     postNewForumPost(forumPost);
 }
@@ -1529,7 +1399,6 @@ function loadForumPostDetails(){
             controlDiv.appendChild(deleteButton);
 
             $(document).on('click', "#" + deleteButtonId , function() {
-                // localStorage.setItem("currentJobDetails",JSON.stringify(job));
                 deleteForumPost(forumPostDetails.id);
             });   
         }
@@ -1699,7 +1568,6 @@ function addMenuItem(menu, itemId, itemName){
     li.appendChild(a);
 }
 
-
 /* --------- User -------- */
 
 function createStudentAccount(){
@@ -1710,13 +1578,13 @@ function createStudentAccount(){
     var password1 = form['password'].value;
     var password2 = form['confirmPassword'].value;
 
-    // if(password1 != password2){
-    //     $("#rePassStudentMessage").text("the password doesn't match");
-    //     $("#RePasswordStudent").focus();
-    //     return false;
-    // }else{
-    //     $("#rePassStudentMessage").text("");
-    // }
+    if(password1 != password2){
+        $("#rePassStudentMessage").text("the password doesn't match");
+        $("#RePasswordStudent").focus();
+        return false;
+    }else{
+        $("#rePassStudentMessage").text("");
+    }
 
     student['password'] = password1;
     student['name'] = form['name'].value;
@@ -1724,8 +1592,6 @@ function createStudentAccount(){
     student['email'] = form['email'].value;
     student['phone'] = form['phone'].value;
     student['dtype'] = "Student";
-
-    // alert(JSON.stringify(student));
 
     PostStudentAccount(student);
 }
@@ -1738,13 +1604,14 @@ function createPartnerAccount(){
     var password1 = form['password'].value;
     var password2 = form['confirmPassword'].value;
 
-    // if(password1 != password2){
-    //     $("#rePassPartnerMessage").text("the password doesn't match");
-    //     $("#partnerRePassword").focus();
-    //     return false;
-    // }else{
-    //     $("#rePassPartnerMessage").text("");
-    // }
+    if(password1 != password2){
+        $("#rePassPartnerMessage").text("the password doesn't match");
+        $("#partnerRePassword").focus();
+        alert("Password aren't matching");
+        return;
+    }else{
+        $("#rePassPartnerMessage").text("");
+    }
 
     partner['password'] = password1;
     partner['name'] = form['name'].value;
