@@ -546,12 +546,7 @@ a:hover {
     color: var(--primary);
 }
 
-input:-internal-autofill-selected {
-    appearance: menulist-button;
-    background-image: none !important;
-    background-color: #000;
-    color: fieldtext !important;
-}
+
 
 .forumSeparation{
     color: var(--primary);
@@ -996,6 +991,7 @@ input:-internal-autofill-selected {
 }
 
 input:-internal-autofill-selected{
+    appearance: menulist-button;
     background-color: #000 !important;
     color: #6C7293 !important;
 }
