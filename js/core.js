@@ -1,6 +1,6 @@
 var user = {};
 var localEndPoint = "http://localhost:8080";
-var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net/";
+var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net";
 var baseAddress = serverEndPoint;
 var messageUsers = [];
 var messageCurrentUser = {};
