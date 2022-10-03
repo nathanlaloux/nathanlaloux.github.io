@@ -1,7 +1,7 @@
 var user = {};
 var localEndPoint = "http://localhost:8080";
-var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net";
-var baseAddress = serverEndPoint;
+var serverEndPoint = "https://wilmanagementsystem.azurewebsites.net/";
+var baseAddress = localEndPoint;
 var messageUsers = [];
 var messageCurrentUser = {};
 var currentDiscussion = {};
@@ -10,8 +10,6 @@ var categoryList = [];
 var jobList = [];
 var currentJobDetails = {};
 var interestApplications = [];
-
-const launchingPages = ["index.html", "aboutus.html", "contactus.html","signin.html"];
 
 const ADMIN = "Admin";
 const STUDENT = "Student";
@@ -141,26 +139,28 @@ function initialization(){
 }
 
 function initializeUser(){
+    
     var userObj = JSON.parse(localStorage.getItem("user"));
     user = userObj;
     InitializeMenu();
+    var p = window.location.pathname;
 
-    if(userObj == null){
+    if(!userObj){
         hidingUserNav();
         if(!includesLaunchingPages()){navigateTo("index.html");}
         return;
     }else if(!(userObj["dtype"] == "Admin" || userObj["dtype"] == "Partner" || userObj["dtype"] == "Student")){
         hidingUserNav();
-        if(!(includesLaunchingPages())){navigateTo("index.html");}
+        if(!includesLaunchingPages()){navigateTo("index.html");}
         return;
+    }else{
+        user = userObj;
     }
-
-    user = userObj;
 
     var nameFields = document.getElementsByClassName("userName");
 
     for(index = 0; index < nameFields.length; index++ ){
-        nameFields[index].innerText = user.user.name;
+        nameFields[index].innerText = user.name;
     }
 
     var typeFields = document.getElementsByClassName("userType");
@@ -182,8 +182,6 @@ function includesLaunchingPages(){
 
     return false;
 }
-
-
 
 function hidingUserNav(){
     var usernavs = document.getElementsByClassName('userNav');
@@ -1725,16 +1723,16 @@ function redirectUser(res){
 }
 
 function loadUserProfile(){
-    document.getElementById('username').value = user.user.username;
-    document.getElementById('email').value = user.user.email;
-    document.getElementById('name').value = user.user.name;
-    document.getElementById('phone').value = user.user.phone;
+    document.getElementById('username').value = user.username;
+    document.getElementById('email').value = user.email;
+    document.getElementById('name').value = user.name;
+    document.getElementById('phone').value = user.phone;
 
     if(user.dtype == STUDENT){
-        document.getElementById('optionalField').value = user.user.studentId;
+        document.getElementById('optionalField').value = user.studentId;
     }
     if(user.dtype == PARTNER){
-        document.getElementById('optionalField').value = user.user.businessName;
+        document.getElementById('optionalField').value = user.businessName;
     }
 }
 
