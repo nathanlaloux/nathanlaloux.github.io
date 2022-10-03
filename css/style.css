@@ -994,3 +994,8 @@ input:-internal-autofill-selected {
     background-color: var(--backgroundlight) !important;
     opacity: 1;
 }
+
+input:-internal-autofill-selected{
+    background-color: #000 !important;
+    color: #6C7293 !important;
+}
