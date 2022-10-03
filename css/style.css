@@ -989,3 +989,8 @@ input:-internal-autofill-selected {
 .hide{
     visibility: hidden;
 }
+
+.form-control:disabled, .form-control:read-only {
+    background-color: var(--backgroundlight) !important;
+    opacity: 1;
+}
