@@ -141,27 +141,26 @@ function initialization(){
 }
 
 function initializeUser(){
-    
     var userObj = JSON.parse(localStorage.getItem("user"));
     user = userObj;
     InitializeMenu();
 
-    if(!userObj){
+    if(userObj == null){
         hidingUserNav();
-        if(!p.includesLaunchinPages()){navigateTo("index.html");}
+        if(!includesLaunchingPages()){navigateTo("index.html");}
         return;
     }else if(!(userObj["dtype"] == "Admin" || userObj["dtype"] == "Partner" || userObj["dtype"] == "Student")){
         hidingUserNav();
-        if(!p.includes("index.html")){navigateTo("index.html");}
+        if(!(includesLaunchingPages())){navigateTo("index.html");}
         return;
-    }else{
-        user = userObj;
     }
+
+    user = userObj;
 
     var nameFields = document.getElementsByClassName("userName");
 
     for(index = 0; index < nameFields.length; index++ ){
-        nameFields[index].innerText = user.name;
+        nameFields[index].innerText = user.user.name;
     }
 
     var typeFields = document.getElementsByClassName("userType");
@@ -1726,16 +1725,16 @@ function redirectUser(res){
 }
 
 function loadUserProfile(){
-    document.getElementById('username').value = user.username;
-    document.getElementById('email').value = user.email;
-    document.getElementById('name').value = user.name;
-    document.getElementById('phone').value = user.phone;
+    document.getElementById('username').value = user.user.username;
+    document.getElementById('email').value = user.user.email;
+    document.getElementById('name').value = user.user.name;
+    document.getElementById('phone').value = user.user.phone;
 
     if(user.dtype == STUDENT){
-        document.getElementById('optionalField').value = user.studentId;
+        document.getElementById('optionalField').value = user.user.studentId;
     }
     if(user.dtype == PARTNER){
-        document.getElementById('optionalField').value = user.businessName;
+        document.getElementById('optionalField').value = user.user.businessName;
     }
 }
 
