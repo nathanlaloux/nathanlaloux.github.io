@@ -11,6 +11,8 @@ var jobList = [];
 var currentJobDetails = {};
 var interestApplications = [];
 
+const launchingPages = ["index.html", "aboutus.html", "contactus.html","signin.html"];
+
 const ADMIN = "Admin";
 const STUDENT = "Student";
 const PARTNER = "Partner";
@@ -143,13 +145,14 @@ function initializeUser(){
     var userObj = JSON.parse(localStorage.getItem("user"));
     user = userObj;
     InitializeMenu();
-    var p = window.location.pathname;
 
     if(!userObj){
         hidingUserNav();
+        if(!p.includesLaunchinPages()){navigateTo("index.html");}
         return;
     }else if(!(userObj["dtype"] == "Admin" || userObj["dtype"] == "Partner" || userObj["dtype"] == "Student")){
         hidingUserNav();
+        if(!p.includes("index.html")){navigateTo("index.html");}
         return;
     }else{
         user = userObj;
@@ -168,6 +171,20 @@ function initializeUser(){
     }
 
 }
+
+function includesLaunchingPages(){
+    var p = window.location.pathname;
+
+    for(var index = 0; index < launchingPages.length; index++){
+        if(p.includes(launchingPages[index])){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 
 function hidingUserNav(){
     var usernavs = document.getElementsByClassName('userNav');
