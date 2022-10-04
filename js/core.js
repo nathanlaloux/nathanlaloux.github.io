@@ -10,7 +10,7 @@ var categoryList = [];
 var jobList = [];
 var currentJobDetails = {};
 var interestApplications = [];
-const launchingPages = ["index.html", "aboutus.html", "contactus.html", "signin.html","signup.html"];
+const launchingPages = ["index.html", "aboutus.html", "contactus.html", "signin.html","signup.html","registrationconfirmation.html"];
 
 const ADMIN = "Admin";
 const STUDENT = "Student";
@@ -84,7 +84,7 @@ const PARTNER = "Partner";
         filterAppliedJobs();
     });
 
-    
+
     // ------ forum controls ---------- //
 
     $("#newForumPostSubmit").click(function (e) {
