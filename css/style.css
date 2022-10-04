@@ -562,16 +562,16 @@ a:hover {
     border-color: var(--secondary);
 } */
 
-.btn-primary, .btn-primary:visited {
+.btn-primary, .btn-primary:visited{
     
     color: #fff !important;
     background-color: var(--primary) !important;
     border-color: var(--primary) !important;
 }
 
-.btn-primary:hover, .btn-primary:active{
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus{
     color: #fff !important;
-    background-color: var(--secondary) !important;
+    background-color: var(--primary) !important;
     border-color: var(--secondary) !important;
 }
 

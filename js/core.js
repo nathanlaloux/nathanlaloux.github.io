@@ -10,6 +10,7 @@ var categoryList = [];
 var jobList = [];
 var currentJobDetails = {};
 var interestApplications = [];
+const launchingPages = ["index.html", "aboutus.html", "contactus.html", "signin.html"];
 
 const ADMIN = "Admin";
 const STUDENT = "Student";
@@ -1408,8 +1409,6 @@ function loadForumPostDetails(){
             controlDiv.appendChild(editButton);
 
             $(document).on('click', "#" + editButtonId , function() {
-
-                
                 navigateTo("editforumpost.html");
             });         
             
@@ -1753,9 +1752,12 @@ function editProfile(){
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
     if(password && confirmPassword && (password == confirmPassword)){
-        alert("password match");
         user.password = password;
     }
+    // else{
+    //     alert("The passwords need to be filled and match");
+    //     return;
+    // }
 
     storeUserInLocalStorage(user);
     putEditedProfile();
