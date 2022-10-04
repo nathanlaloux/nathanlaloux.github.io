@@ -84,6 +84,7 @@ const PARTNER = "Partner";
         filterAppliedJobs();
     });
 
+    
     // ------ forum controls ---------- //
 
     $("#newForumPostSubmit").click(function (e) {
