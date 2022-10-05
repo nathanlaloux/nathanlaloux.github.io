@@ -981,6 +981,11 @@ a:hover {
     width: 90%;
 }
 
+.centered{
+    margin:2em;
+    
+}
+
 .hide{
     visibility: hidden;
 }
@@ -994,4 +999,8 @@ input:-internal-autofill-selected{
     appearance: menulist-button;
     background-color: #000 !important;
     color: #6C7293 !important;
+}
+
+.vh-80{
+    height: 80vh;
 }

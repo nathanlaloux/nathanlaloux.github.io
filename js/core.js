@@ -52,12 +52,6 @@ const PARTNER = "Partner";
         return false;
     });
 
-    // Sidebar Toggler
-    $('.sidebar-toggler').click(function () {
-        $('.sidebar, .content').toggleClass("open");
-        return false;
-    });
-
     // ------ Job Board controls ---------- //
 
     $("#createNewJobPostButton").click(function (e) {
