@@ -39,7 +39,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="loadAccountCreationMessage();">
+<body onload="initialization(); loadAccountCreationMessage();">
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -101,19 +101,17 @@
 
              <!-- Sign In Start -->
             <div class="container-fluid pt-4 px-4 flex">
-                <div class="bg-secondary">
-                    <button type="button" onclick="navigateTo('signup.html')" class="btn btn-secondary m-2"><i class="fa fa-chevron-left me-2"></i>Back</button>
-                </div>
+              
                 <div class="row vh-80 bg-secondary sign-in-style rounded align-items-center justify-content-center mx-0">
                     <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                         <div id="userLoginForm" class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                            <div class="d-flex text-center">
+                            <div class="text-center">
                                 <h3>Account Creation Confirmation</h3>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="mb-4 text-center">
                                 <p id="accountCreationMessage"></p>
                             </div>
-                            <p class="text-center mb-0">Get back to the <a href="index.html">Sign In</a> Page</p>
+                            <p class="text-center mb-0">Get back to the <a href="signin.html">Sign In</a> Page</p>
                         </div>
                     </div>
                 </div>
