@@ -366,11 +366,21 @@ function loadLineChart(element, labels, data, labelDescription){
             }]
         },
         options: {
-            responsive: true
+            responsive: true,
+            scale: {
+                ticks: {
+                  precision: 0
+                }
+            }
         }
     });
 }
-   
+// window.myLine = new Chart(ctx).Line(lineChartData, {
+//     scaleOverride : true,
+//     scaleSteps : 10,
+//     scaleStepWidth : 50,
+//     scaleStartValue : 0 
+// });
 
 // ------ Interest Application ---------- //
 
@@ -1493,7 +1503,7 @@ function loadForumPostMessages(forumPostDetails){
         messageDiv.className = "forumDetailsCenter";
 
         var messageP = document.createElement('p');
-        messageP.className = "forumDescription text-justify";
+        messageP.className = "forumDescription text-justify pre";
         messageP.innerHTML = array[index]["message"];
         messageDiv.appendChild(messageP);
 

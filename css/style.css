@@ -726,7 +726,7 @@ a:hover {
     font-size: 16px;
     border-radius: 7px;
     display: inline-block;
-    position: relative
+    position: relative;
 }
 
 .chat .chat-history .message:after {
@@ -745,6 +745,7 @@ a:hover {
 
 .chat .chat-history .other-message {
     background: var(--light);
+    margin-left: -10px
 }
 
 .chat .chat-history .other-message:after {
@@ -765,13 +766,11 @@ a:hover {
     background: var(--primary);
     color: var(--backgroundlight);
     text-align: right;
+    margin-left:20%;
 }
 
 .chat .chat-history .my-message:after {
-    /* border-bottom-color: var(--primary);
-    left: 93% */
     border: none;
-
 }
 
 .chat .chat-message {
@@ -1003,4 +1002,10 @@ input:-internal-autofill-selected{
 
 .vh-80{
     height: 80vh;
+}
+
+.pre{
+     white-space:pre-line ; 
+     display: block; 
+     unicode-bidi: embed; 
 }
